@@ -339,6 +339,8 @@
 
         customSearch: $.noop,
 
+        customSort: $.noop,
+
         rowStyle: function (row, index) {
             return {};
         },
@@ -862,6 +864,11 @@
             name = this.options.sortName,
             order = this.options.sortOrder === 'desc' ? -1 : 1,
             index = $.inArray(this.options.sortName, this.header.fields);
+
+        if (this.options.customSort !== $.noop) {
+            this.options.customSort.apply(this, [this.options.sortName, this.options.sortOrder]);
+            return;
+        }
 
         if (index !== -1) {
             this.data.sort(function (a, b) {
@@ -2820,7 +2827,8 @@
         sprintf: sprintf,
         getFieldIndex: getFieldIndex,
         compareObjects: compareObjects,
-        calculateObjectValue: calculateObjectValue
+        calculateObjectValue: calculateObjectValue,
+        getItemField: getItemField
     };
 
     // BOOTSTRAP TABLE INIT
