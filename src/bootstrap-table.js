@@ -1577,6 +1577,10 @@
                     return;
                 }
 
+                if (that.options.cardView && (!column.cardVisible)) {
+                    return;
+                }
+
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
                 value = calculateObjectValue(column,
